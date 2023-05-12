@@ -12,7 +12,7 @@ let tlProject = {
 
 function getImages() {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', '/load_images.php', true);
+  xhr.open('GET', '/load_images_1080.php', true);
   xhr.onload = function () {
     if (this.status == 200) {
       var images = JSON.parse(this.responseText);
