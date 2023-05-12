@@ -33,7 +33,11 @@ body {
 #frames {
 	grid-area: frames;
 }
-
+@media screen and (max-width: 600px) {
+	.meta-property {
+		flex-direction: column;
+	}
+}
 .meta-property {
 	display: inline-flex;
 	align-items:baseline;
