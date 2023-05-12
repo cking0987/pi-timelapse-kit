@@ -50,6 +50,9 @@ body {
 	margin-right: 24px;
 	letter-spacing: 1px;;
 }
+.slideshow-container {
+	position: relative;
+}
 .slideshow-container figure {
 	margin: 0;
 	position: relative;
@@ -68,4 +71,18 @@ body {
 	width: 100%;
 	display: inline-flex;
 	justify-content:center;
+}
+
+.project-container.initial .ring,
+.project-container.loaded .ring {
+	display: none;
+}
+.project-container.loading figure {
+	opacity: 0;
+}
+.project-container.loading .slideshow-container {
+	background-color: #262626;
+}
+.project-container.loading .ring {
+	display: block;
 }

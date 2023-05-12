@@ -3,8 +3,7 @@ TODO:
 
 -allow for multiple projects. That means scanning the img directory for unique project names first, then scoping all subsequent functions to that specific project. 
 -better state management. each project should have initial,ready, and playing states. In initial, the controls should be hidden/disabled and there should be a clear button to click to load.
--loader screen while loading
-
+-add preload check to prev next buttons
 */
 
 let tlProject = {
@@ -48,7 +47,7 @@ function buildTimelapseProjectDataObject(images) {
 
 function addProjectToDOM(project) {
 	const projectEl = `
-		<div class="project-container" id="project-`+project.name+`">
+		<div class="project-container initial" id="project-`+project.name+`">
 			<div class="project-meta">
 				<div id="project-name" class="meta-property">
 					<div class="label">project name:</div><div class="value">`+project.name+`</div>
@@ -71,6 +70,9 @@ function addProjectToDOM(project) {
 					<img src="`+project.imgSet[0].filepath+`" class="slide-img" alt="An image in a timelapse slideshow. The project name is`+project.name+`">
 					<figcaption class="slide-name">`+project.imgSet[0].filename+`</figcaption>
 				</figure>
+				<div class="ring">Loading
+					<span></span>
+				</div>
 			</div>
 			<div class="project-controls">
 				<button onClick="previousSlide()">prev</button> | 
@@ -85,18 +87,23 @@ function addProjectToDOM(project) {
 let currentIndex = 0;
 let isPlaying = false;
 let loadedCount = 0;
-let slideContainer, slideImage, slideFilename, imageCount, slideshowInterval;
+let slideContainer, slideImage, slideFilename, imageCount, slideshowInterval, projectContainer;
 
 function preloadImages() {
+	projectContainer = document.getElementById('project-'+tlProject.name);
 	slideContainer = document.getElementById('slideshow-'+tlProject.name);
 	slideImage = slideContainer.querySelector('img');
 	slideFilename = slideContainer.querySelector('figcaption');
 	imageCount = tlProject.nFrames;
+	projectContainer.classList.remove('initial');
+	projectContainer.classList.add('loading');
 	for (let i = 0; i < imageCount; i++) {
 		const image = new Image();
 		image.onload = () => {
 			loadedCount++;
 			if (loadedCount === imageCount) {
+				projectContainer.classList.remove('loading');
+				projectContainer.classList.add('loaded', 'playing');
 				playPause();
 			}
 		};
@@ -126,9 +133,11 @@ function playPause() {
 		if (isPlaying) {
 			clearInterval(slideshowInterval);
 			isPlaying = false;
+			projectContainer.classList.remove('playing');
 		} else {
 			slideshowInterval = setInterval(nextSlide, 150);
 			isPlaying = true;
+			projectContainer.classList.add('playing');
 		}
 	} else {
 		preloadImages();
