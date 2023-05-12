@@ -23,8 +23,8 @@ foreach ($files as $file) {
         $images[] = $file;
 
         // Generate a unique filename for the resized image
-        $resizedFilename = '' . $file;
-        $resizedImagePath = $destinationDir . $resizedFilename;
+        $resizedFilename = $file;
+        $resizedImagePath = $destinationDir . pathinfo($file, PATHINFO_FILENAME) . '.jpg';
 
         // Check if the resized image already exists
         if (!file_exists($resizedImagePath)) {
@@ -64,8 +64,10 @@ foreach ($files as $file) {
                 $originalWidth, $originalHeight // Source width, height
             );
 
-            // Save the resized image to the destination folder
-            imagejpeg($resizedImage, $resizedImagePath, 80); // Adjust the quality (80) if needed
+            // Save the resized image to the destination folder in WebP format
+            $webpImagePath = str_replace('.jpg', '.webp', $resizedImagePath);
+            imagewebp($resizedImage, $webpImagePath, 80); // Adjust the quality (80) if needed
+
 
             // Free up memory
             imagedestroy($originalImage);
@@ -74,8 +76,8 @@ foreach ($files as $file) {
     }
 }
 
-// Get the list of resized images in the directory
-$newFiles = glob($destinationDir . '*.jpg'); // Adjust the file extension if needed
+// Get the list of resized WebP images in the directory
+$newFiles = glob($destinationDir . '*.webp');
 
 $newImages = array();
 
