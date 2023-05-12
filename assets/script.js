@@ -75,6 +75,7 @@ function addProjectToDOM(project) {
 				</div>
 			</div>
 			<div class="project-controls">
+				<button onClick="startOver()">start over</button> |
 				<button onClick="previousSlide()">prev</button> | 
 				<button onClick="playPause()">play/pause</button> | 
 				<button onClick="nextSlide()">next</button>
@@ -113,18 +114,26 @@ function preloadImages() {
 
 function showSlide(index) {
 	const currentImage = tlProject.imgSet[index];
-	console.log("current image path: " + currentImage.filepath);
 	slideImage.src = "/"+currentImage.filepath;
 	slideFilename.textContent = currentImage.filename;
 }
 
 function nextSlide() {
-	currentIndex = (currentIndex + 1) % imageCount;
-	showSlide(currentIndex);
+	if (currentIndex < (imageCount-1) ) {
+		currentIndex = (currentIndex + 1) % imageCount;
+		showSlide(currentIndex);
+	} else {
+		playPause();
+	}
 }
 
 function previousSlide() {
 	currentIndex = (currentIndex - 1 + imageCount) % imageCount;
+	showSlide(currentIndex);
+}
+
+function startOver() {
+	currentIndex = 0;
 	showSlide(currentIndex);
 }
 
