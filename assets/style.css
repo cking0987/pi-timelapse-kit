@@ -1,0 +1,71 @@
+body {
+	font-family: 'Inconsolata', monospace;
+	color: rgba(0,0,0,.5);
+	font-weight: 300;
+}
+.project-container {
+	max-width: 1200px;
+	margin: 32px auto;
+}
+.project-meta {
+	display: grid;
+	justify-content: start;
+	row-gap: 4px;
+	column-gap: 6px;
+	margin: 6px 0;
+	grid-template-areas:
+		"name name ."
+		"start end ."
+		"duration frames ."
+}
+#project-name {
+	grid-area: name;
+}
+#start {
+	grid-area: start;
+}
+#end {
+	grid-area: end;
+}
+#duration {
+	grid-area: duration;
+}
+#frames {
+	grid-area: frames;
+}
+
+.meta-property {
+	display: inline-flex;
+	align-items:baseline;
+}
+.meta-property .label {
+	margin-right: 6px;
+	font-size: 1.1rem;
+	font-weight: 500;
+}
+.meta-property .value {
+	background-color: rgba(0,0,0,.75);
+	color: white;
+	padding: 4px;
+	margin-right: 24px;
+	letter-spacing: 1px;;
+}
+.slideshow-container figure {
+	margin: 0;
+	position: relative;
+}
+.slide-img {
+	width: 100%;
+}
+.slide-name {
+	position: absolute;
+	bottom: 8px;
+	left: 8px;
+	background-color: rgba(0,0,0,.5);
+	color: white;
+}
+.project-controls {
+	width: 100%;
+	display: inline-flex;
+	justify-content:center;
+}
