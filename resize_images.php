@@ -68,7 +68,6 @@ foreach ($files as $file) {
             $webpImagePath = str_replace('.jpg', '.webp', $resizedImagePath);
             imagewebp($resizedImage, $webpImagePath, 80); // Adjust the quality (80) if needed
 
-
             // Free up memory
             imagedestroy($originalImage);
             imagedestroy($resizedImage);
