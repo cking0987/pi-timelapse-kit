@@ -1,0 +1,5 @@
+<If "%{REQUEST_URI} =~ /load_images_1080.php$/">
+  <IfModule mod_headers.c>
+Header set Cache-Control "private"
+</IfModule>
+</If>
