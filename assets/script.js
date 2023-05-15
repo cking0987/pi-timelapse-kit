@@ -1,3 +1,7 @@
+// framerate in FPS to use when showing timelapse animation
+const framerate = 24;
+const interval = 1000 / framerate;
+
 const projects = [];
 
 class Project {
@@ -91,7 +95,7 @@ class Project {
 			clearInterval(this.nextInterval);
 			this.isPlaying = false;
 		} else {
-			this.nextInterval = setInterval(() => this.nextSlide(), 100);
+			this.nextInterval = setInterval(() => this.nextSlide(), interval);
 			this.isPlaying = true;
 		}
 	}
